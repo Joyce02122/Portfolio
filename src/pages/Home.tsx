@@ -348,27 +348,27 @@ const projects = [
     title: 'CutEasy',
     subtitle: 'Seamless Appointment Management Platform for Salons and Customers',
     tags: ['B2B SaaS', 'Workflow Optimization', 'Design System'],
-    image: '/home/cuteasy.png'
+    image: '/Home/cuteasy.png'
   },
   {
     id: 'glingling',
     title: 'Glingling',
     subtitle: 'Circular Marketplace for Upcycled Household Items',
     tags: ['Mobile Design', 'Product-Market Fit', 'Service Innovation'],
-    image: '/home/glingling.png'
+    image: '/Home/glingling.png'
   },
   {
     id: 'trektopia',
     title: 'Trektopia',
     subtitle: 'Hiking Journey Reflection Platform with Outdoor IoT Integration',
     tags: ['Platform Design', 'Gamification', 'Outdoor IoT'],
-    image: '/home/trektopia.png'
+    image: '/Home/trektopia.png'
   },
   {
     id: 'smart-home',
     title: 'Co-Designing Smart Home IoT with Taiwanese Families',
     tags: ['HCI Research', 'Smart Home IoT', 'Family Behavior'],
-    image: '/home/smart-iot.png'
+    image: '/Home/smart-iot.png'
   }
 ];
 
@@ -399,7 +399,7 @@ const Home: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <img src="/home/1.png" alt="Joyce Chou" />
+              <img src="/Home/1.png" alt="Joyce Chou" />
             </Avatar>
           </HeroImage>
         </HeroContent>
