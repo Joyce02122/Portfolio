@@ -170,81 +170,176 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled(motion.div)`
-  background: ${theme.colors.background};
+  position: relative;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
   cursor: pointer;
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  height: 400px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: ${theme.shadows.medium};
-    border: 1px solid ${theme.colors.primary};
-    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 
-    h3, h4 {
-      color: ${theme.colors.primary};
+    .overlay {
+      opacity: 1;
+      backdrop-filter: blur(4px);
+    }
+
+    .content {
+      transform: translateY(0);
+      opacity: 1;
     }
   }
 `;
 
 const ProjectImage = styled.img`
   width: 100%;
-  height: 280px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 16px 16px 0 0;
+  border-radius: 16px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  ${ProjectCard}:hover & {
+    transform: scale(1.05);
+  }
+`;
+
+const ProjectOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: ${theme.spacing.xl};
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 16px;
 `;
 
 const ProjectContent = styled.div`
-  padding: ${theme.spacing.md};
-  flex: 1;
+  color: white;
+  text-align: center;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: ${theme.spacing.md};
+  margin-top: 60px;
+  position: relative;
+  height: 100%;
 `;
 
 const ProjectTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.xs};
-  margin-bottom: ${theme.spacing.sm};
+  margin-bottom: ${theme.spacing.xs};
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     margin: 0;
-    color: ${theme.colors.text};
+    color: white;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.2;
+    margin-bottom: ${theme.spacing.sm};
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   h4 {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin: 0;
-    color: ${theme.colors.text};
-    font-weight: 400;
-    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const ProjectTags = styled.div`
   display: flex;
   gap: ${theme.spacing.sm};
-  flex-wrap: wrap;
-  margin-top: auto;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 100%;
+  padding: ${theme.spacing.sm} ${theme.spacing.sm};
+  min-height: 40px;
+  position: relative;
+  max-width: 100%;
+  padding-bottom: ${theme.spacing.sm};
+  margin-bottom: ${theme.spacing.xl};
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Tag = styled.span`
-  background: ${theme.colors.lightGray};
-  color: ${theme.colors.primary};
-  padding: ${theme.spacing.xs} ${theme.spacing.md};
-  border-radius: ${theme.borderRadius.medium};
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
   font-size: 0.9375rem;
   font-weight: 500;
   letter-spacing: -0.2px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: max-content;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0 2px;
+
+  ${ProjectCard}:hover & {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+  }
+`;
+
+const ViewButton = styled(Link)`
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.95);
+  color: ${theme.colors.primary};
+  padding: 12px 32px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+
+  ${ProjectCard}:hover & {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  &:hover {
+    background: white;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const projects = [
@@ -266,7 +361,7 @@ const projects = [
     id: 'trektopia',
     title: 'Trektopia',
     subtitle: 'Hiking Journey Reflection Platform with Outdoor IoT Integration',
-    tags: ['Platform Design', 'Gamification', 'Hardware-Software Integration'],
+    tags: ['Platform Design', 'Gamification', 'Outdoor IoT'],
     image: '/home/trektopia.png'
   },
   {
@@ -320,9 +415,9 @@ const Home: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 as={motion.div}
               >
-                <Link to={`/projects/${project.id}`}>
-                  <ProjectImage src={project.image} alt={project.title} />
-                  <ProjectContent>
+                <ProjectImage src={project.image} alt={project.title} />
+                <ProjectOverlay className="overlay">
+                  <ProjectContent className="content">
                     <ProjectTitle>
                       <h3>{project.title}</h3>
                       {project.subtitle && <h4>{project.subtitle}</h4>}
@@ -332,8 +427,11 @@ const Home: React.FC = () => {
                         <Tag key={tag}>{tag}</Tag>
                       ))}
                     </ProjectTags>
+                    <ViewButton to={`/projects/${project.id}`}>
+                      View Project
+                    </ViewButton>
                   </ProjectContent>
-                </Link>
+                </ProjectOverlay>
               </ProjectCard>
             ))}
           </ProjectsGrid>

@@ -12,6 +12,14 @@ const AboutSection = styled.section`
   box-shadow: ${theme.shadows.medium};
 `;
 
+const PageTitle = styled.h1`
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: ${theme.colors.primary};
+  margin-bottom: ${theme.spacing.xl};
+  text-align: center;
+`;
+
 const Title = styled(motion.h1)`
   font-size: ${theme.typography.fontSize.h1};
   color: ${theme.colors.primary};
@@ -64,6 +72,7 @@ const SkillItem = styled.li`
 const About: React.FC = () => {
   return (
     <AboutSection>
+      <PageTitle>Nice to meet you!</PageTitle>
       <Title
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
