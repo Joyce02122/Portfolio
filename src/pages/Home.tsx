@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = styled.section`
   min-height: calc(100vh - 80px);
@@ -16,7 +16,7 @@ const HeroContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${theme.spacing.xxl};
+  gap: ${theme.spacing.xl};
   margin-bottom: ${theme.spacing.xl};
   width: 100%;
   max-width: ${theme.breakpoints.wide};
@@ -31,9 +31,9 @@ const HeroContent = styled.div`
 `;
 
 const HeroText = styled.div`
-  flex: 1;
+  flex: 1.2;
   text-align: left;
-  max-width: 600px;
+  width: 100%;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     order: 2;
@@ -42,7 +42,7 @@ const HeroText = styled.div`
 `;
 
 const HeroImage = styled.div`
-  flex: 1;
+  flex: 0.8;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -86,27 +86,15 @@ const Greeting = styled(motion.h1)`
   font-weight: 600;
 `;
 
-const Title = styled(motion.h2)`
-  font-size: ${theme.typography.fontSize.h1};
-  margin-bottom: ${theme.spacing.lg};
-  color: ${theme.colors.primary};
-`;
-
-const Subtitle = styled(motion.p)`
-  font-size: ${theme.typography.fontSize.h3};
-  margin-bottom: ${theme.spacing.xl};
-  color: ${theme.colors.text};
-  max-width: 600px;
-`;
-
 const Description = styled(motion.p)`
   font-size: 1.35rem;
   color: #4A5568;
   line-height: 1.6;
-  margin-bottom: ${theme.spacing.xl};
-  max-width: 600px;
+  margin-bottom: ${theme.spacing.md};
+  width: 100%;
   font-weight: 400;
   text-align: left;
+  white-space: normal;
 
   strong {
     font-weight: 700;
@@ -117,20 +105,12 @@ const Description = styled(motion.p)`
     position: relative;
     display: inline;
     color: #4A5568;
-    text-decoration: underline;
-    text-decoration-color: #FFD700;
-    text-decoration-thickness: 0.35em;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.4em;
-    text-decoration-style: wavy;
-    text-decoration-skip-ink: none;
-    text-underline-offset: 0.4em;
-    background-image: url("data:image/svg+xml,%3Csvg width='200' height='20' viewBox='0 0 200 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10C0 10 40 0 100 10C160 20 200 10 200 10' stroke='%23FFD700' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E");
+    text-decoration: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10C0 10 20 0 50 10C80 20 100 10 100 10' stroke='%23FFD700' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: repeat-x;
     background-position: 0 1.2em;
-    background-size: 200% 0.5em;
+    background-size: 100% 0.8em;
     padding-bottom: 0.2em;
-    text-decoration: none;
   }
 `;
 
@@ -179,6 +159,14 @@ const ProjectCard = styled(motion.div)`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    height: 320px;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: 280px;
+  }
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
@@ -222,6 +210,10 @@ const ProjectOverlay = styled.div`
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 16px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: ${theme.spacing.lg};
+  }
 `;
 
 const ProjectContent = styled.div`
@@ -239,10 +231,17 @@ const ProjectContent = styled.div`
   margin-top: 60px;
   position: relative;
   height: 100%;
+  padding-bottom: 80px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin-top: 40px;
+    gap: ${theme.spacing.sm};
+    padding-bottom: 70px;
+  }
 `;
 
 const ProjectTitle = styled.div`
-  margin-bottom: ${theme.spacing.xs};
+  margin-bottom: ${theme.spacing.md};
 
   h3 {
     font-size: 1.8rem;
@@ -250,8 +249,12 @@ const ProjectTitle = styled.div`
     color: white;
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: ${theme.spacing.sm};
+    margin-bottom: ${theme.spacing.md};
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: 1.5rem;
+    }
   }
 
   h4 {
@@ -261,6 +264,10 @@ const ProjectTitle = styled.div`
     font-weight: 500;
     line-height: 1.5;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -279,6 +286,11 @@ const ProjectTags = styled.div`
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin-bottom: ${theme.spacing.lg};
+    padding-bottom: ${theme.spacing.xs};
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -305,13 +317,19 @@ const Tag = styled.span`
   flex-shrink: 0;
   margin: 0 2px;
 
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 0.875rem;
+    padding: 4px 12px;
+    height: 28px;
+  }
+
   ${ProjectCard}:hover & {
     background: rgba(255, 255, 255, 0.18);
     transform: translateY(-2px);
   }
 `;
 
-const ViewButton = styled(Link)`
+const ViewButton = styled.button`
   display: inline-block;
   background: rgba(255, 255, 255, 0.95);
   color: ${theme.colors.primary};
@@ -329,6 +347,16 @@ const ViewButton = styled(Link)`
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
+  white-space: nowrap;
+  cursor: pointer;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: 10px 24px;
+    font-size: 1rem;
+    bottom: 16px;
+    width: auto;
+    min-width: 140px;
+  }
 
   ${ProjectCard}:hover & {
     transform: translateX(-50%) translateY(0);
@@ -339,6 +367,86 @@ const ViewButton = styled(Link)`
     background: white;
     transform: translateX(-50%) translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  &.disabled {
+    background: rgba(255, 255, 255, 0.7);
+    color: #666;
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      transform: translateX(-50%) translateY(0);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+`;
+
+const IntroText = styled.p`
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: ${theme.colors.text};
+  margin-bottom: ${theme.spacing.xl};
+  white-space: pre-line;
+`;
+
+const BoldText = styled.span`
+  font-weight: 600;
+`;
+
+const HighlightedText = styled.span`
+  text-decoration: wavy underline #FFD700;
+`;
+
+const ScrollIndicator = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${theme.spacing.sm};
+  margin-top: ${theme.spacing.xl};
+`;
+
+const ScrollText = styled.span`
+  font-size: 0.9rem;
+  color: ${theme.colors.gray};
+`;
+
+const ScrollIcon = styled.span`
+  font-size: 1.5rem;
+  color: ${theme.colors.primary};
+  animation: bounce 2s infinite;
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+`;
+
+const ResumeButton = styled.a`
+  display: inline-block;
+  background: ${theme.colors.primary};
+  color: white;
+  padding: 12px 32px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  margin-top: ${theme.spacing.md};
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -373,6 +481,8 @@ const projects = [
 ];
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Hero>
@@ -388,16 +498,18 @@ const Home: React.FC = () => {
             <Description
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <strong>Product Designer</strong> who is passionate about turning design concepts into solutions that <span className="highlight">bring meaningful and joyful experiences to everyday life</span>.
+              <strong>Product designer</strong> with experience in <strong>B2B SaaS</strong> and <strong>B2C web/mobile</strong>.
+              <br />
+              I design <span className="highlight">user-centered</span>, <span className="highlight">scalable</span>, and <span className="highlight">innovative</span> solutions that simplify complex problems and <span className="highlight">bring meaningful value to everyday life</span>.
             </Description>
           </HeroText>
           <HeroImage>
             <Avatar
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
             >
               <img src="/Home/1.png" alt="Joyce Chou" />
             </Avatar>
@@ -414,6 +526,8 @@ const Home: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 as={motion.div}
+                onClick={() => project.id !== 'smart-home' && navigate(`/projects/${project.id}`)}
+                style={{ cursor: project.id === 'smart-home' ? 'default' : 'pointer' }}
               >
                 <ProjectImage src={project.image} alt={project.title} />
                 <ProjectOverlay className="overlay">
@@ -427,9 +541,15 @@ const Home: React.FC = () => {
                         <Tag key={tag}>{tag}</Tag>
                       ))}
                     </ProjectTags>
-                    <ViewButton to={`/projects/${project.id}`}>
-                      View Project
-                    </ViewButton>
+                    {project.id === 'smart-home' ? (
+                      <ViewButton className="disabled">
+                        In Progress...
+                      </ViewButton>
+                    ) : (
+                      <ViewButton>
+                        View Project
+                      </ViewButton>
+                    )}
                   </ProjectContent>
                 </ProjectOverlay>
               </ProjectCard>

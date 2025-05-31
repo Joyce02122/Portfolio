@@ -109,38 +109,56 @@ const Tag = styled.span`
   opacity: 0.9;
 `;
 
-const ViewButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: ${theme.colors.primary};
-  color: white;
+const ViewButton = styled.button`
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.95);
+  color: ${theme.colors.primary};
   padding: 12px 32px;
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
-  align-self: flex-start;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-width: 160px;
-  border: 2px solid ${theme.colors.primary};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  white-space: nowrap;
+  cursor: pointer;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: 10px 24px;
+    font-size: 1rem;
+    bottom: 16px;
+    width: auto;
+    min-width: 140px;
+  }
+
+  ${ProjectCard}:hover & {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
 
   &:hover {
-    background: transparent;
-    color: ${theme.colors.primary};
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: white;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   }
 
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+  &.disabled {
+    background: rgba(255, 255, 255, 0.7);
+    color: #666;
+    cursor: default;
+    pointer-events: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    width: 100%;
-    margin-top: ${theme.spacing.md};
+    &:hover {
+      transform: translateX(-50%) translateY(0);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
   }
 `;
 
@@ -205,9 +223,15 @@ const Projects: React.FC = () => {
                   ))}
                 </ProjectTags>
               </div>
-              <ViewButton to={`/projects/${project.id}`}>
-                View Project
-              </ViewButton>
+              {project.id === 'smart-home' ? (
+                <ViewButton className="disabled">
+                  In Progress...
+                </ViewButton>
+              ) : (
+                <ViewButton>
+                  View Project
+                </ViewButton>
+              )}
             </ProjectContent>
           </ProjectCard>
         ))}

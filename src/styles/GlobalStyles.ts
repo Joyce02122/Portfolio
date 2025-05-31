@@ -2,6 +2,28 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --scale-factor: 1;
+  }
+
+  @media screen and (max-width: 1440px) {
+    :root {
+      --scale-factor: 0.9;
+    }
+  }
+
+  @media screen and (max-width: 1280px) {
+    :root {
+      --scale-factor: 0.85;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    :root {
+      --scale-factor: 0.8;
+    }
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -9,7 +31,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 16px;
+    font-size: calc(16px * var(--scale-factor));
     scroll-behavior: smooth;
   }
 
@@ -67,5 +89,28 @@ export const GlobalStyles = createGlobalStyle`
 
   ul, ol {
     list-style-position: inside;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 `; 
